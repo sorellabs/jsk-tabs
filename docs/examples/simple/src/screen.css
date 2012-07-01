@@ -1,0 +1,28 @@
+.tablist {
+    list-style: none;
+    margin: 0;
+}
+.tablist li {
+    float: left;
+}
+.tablist li a {
+    display: block;
+    width: 200px;
+    height: 32px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #999;
+}
+.tablist li .active {
+    border: 1px solid #999;
+    background: #f8f8f8;
+    color: #333;
+}
+#content:before{ clear: both }
+#content {
+    border-top: 1px solid #ddd;
+    padding: 20px
+}
+#content .tab { display: none }
+#content .active { display: block }

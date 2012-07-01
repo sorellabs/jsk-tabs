@@ -30,9 +30,9 @@ module.exports = (engine) ->
 
   
   ### == Dependencies ==================================================
-  {Tab, Group} = require \core
+  {Tab, Group}            = require './core'
   {query, map, add-class} = (require \moros) engine
-  {target}     = (require 'jsk-togglable/lib/utils') engine
+  {target, find-anchors}  = (require 'jsk-togglable/lib/utils') engine
 
 
   
@@ -42,19 +42,17 @@ module.exports = (engine) ->
 
   
   ### == Core implementation ===========================================
-  find-tabs = (x) ->
-    query '.tab-list a[href*="#"], .tab-list [data-target]' x
-
   make-tabs(group, xs) = xs |> map ->
-    Tab.make group, x, target x
+    Tab.make group, it, target it
+
 
   make-groups(parent, xs) = xs |> map ->
     mark-as-processed it
     group = Group.make parent
-    tabs  = make-tabs group, find-tabs it
+    tabs  = make-tabs group, find-anchors it
     group
 
 
   
   ### Exports ##########################################################
-  { find-tabs, make-tabs, make-groups }
+  { make-tabs, make-groups }

@@ -32,9 +32,19 @@ module.exports = (engine, events) ->
   ### == Dependencies ==================================================
   {Eventful}      = require \ekho
   {query, listen} = (require \moros) engine, events
-  {Tab, Group}    = require \core
-  {tab-p}         = require \type
-  {make-groups}   = (require \utils) engine
+  {Tab, Group}    = require './core'
+  {tab-p}         = require './type'
+  {make-groups}   = (require './utils') engine
+
+
+  
+  ### == Helpers =======================================================
+  show-tab = (ev) -> @show!
+
+  ignore-event = (ev) -> ev.prevent-default!
+
+  initialise-tab = ->
+    listen \click (ignore-event >> show-tab.bind this), @tab
 
   
   ### Exports ##########################################################

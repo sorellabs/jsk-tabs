@@ -38,7 +38,8 @@
   },
   "dependencies": {
     "ekho": ">=0.3.0 || <2.0.0",
-    "moros": ">=0.3.4 || <2.0.0"
+    "moros": ">=0.3.4 || <2.0.0",
+    "jsk-togglable": "<2.0.0"
   },
   "devDependencies": {
     "prelude-ls": ">=0.5.0 <2.0.0",

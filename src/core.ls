@@ -65,9 +65,14 @@ Group = Eventful.derive {
 
 
   activate: (tab) ->
-    @tabs.filter (!= tab) .for-each (.hide)
-    @on \show -> activate this
+    @tabs.filter (!= tab) .for-each (.hide!)
+    @trigger \activated tab
     this
+
+
+  setup-events: ->
+    activate = @activate.bind this
+    @on \shown -> activate this
 }
 
 
