@@ -38,6 +38,9 @@ module.exports = (engine) ->
   
   ### == Helpers =======================================================
   mark-as-processed = add-class \jskp-tabgroup
+  filter(f, xs)     = [].filter.call xs, f
+  tab-anchor-p      = (not) . has-class-p \jsk-toggle
+  tab-anchors       = find-anchors >> (filter tab-anchor-p)
 
 
   
@@ -49,7 +52,7 @@ module.exports = (engine) ->
   make-groups(parent, xs) = xs |> map ->
     mark-as-processed it
     group = Group.make parent
-    tabs  = make-tabs group, find-anchors it
+    tabs  = make-tabs group, tab-anchors it
     group
 
 
