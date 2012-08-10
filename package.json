@@ -2,7 +2,7 @@
   "author": "Quildreen Motta <quildreen@gmail.com> (http://killdream.github.com/)",
   "name": "jsk-tabs",
   "description": "Basic behaviours for tab components in a WebPage.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "ui",
     "tabs"
