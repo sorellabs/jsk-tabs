@@ -32,7 +32,7 @@ module.exports = (engine) ->
   ### == Dependencies ==================================================
   {Tab, Group}            = require './core'
   {query, map, add-class} = (require \moros) engine
-  {target, find-anchors}  = (require 'jsk-togglable/lib/utils') engine
+  {target}  = (require 'jsk-togglable/lib/utils') engine
 
 
   
@@ -45,6 +45,15 @@ module.exports = (engine) ->
 
   
   ### == Core implementation ===========================================
+
+  #### Function find-anchors
+  # Selects nodes that can be used as toggling anchors for a context
+  # node ``x``.
+  #
+  # find-anchors :: Node -> [Node]
+  find-anchors = (x) -> query 'a.jsk-anchor[href*="#"], .tab[data-jsk-target]' x
+
+
   make-tabs(group, xs) = xs |> map ->
     Tab.make group, it, target it
 
