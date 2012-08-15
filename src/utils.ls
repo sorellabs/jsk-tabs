@@ -30,18 +30,21 @@ module.exports = (engine) ->
 
   
   ### == Dependencies ==================================================
-  {Tab, Group}            = require './core'
-  {query, map, add-class} = (require \moros) engine
-  {target}  = (require 'jsk-togglable/lib/utils') engine
+  {Tab, Group}                         = require './core'
+  {query, map, add-class, has-class-p} = (require \moros) engine
+  {head}                               = require 'moros/lib/utils'
+  {target}                             = (require 'jsk-togglable/lib/utils') engine
 
 
   
   ### == Helpers =======================================================
-  mark-as-processed = add-class \jskp-tabgroup
-  filter(f, xs)     = [].filter.call xs, f
-  tab-anchor-p      = (not) . has-class-p \jsk-toggle
-  tab-anchors       = find-anchors >> (filter tab-anchor-p)
-
+  mark-as-processed     = add-class \jskp-tabgroup
+  filter(f, xs)         = [].filter.call xs, f
+  tab-anchor-p          = (not) . has-class-p \jsk-toggle
+  tab-anchors           = find-anchors >> (filter tab-anchor-p)
+  active-p(tab)         = has-class-p \active tab.tab
+  find-active-tab(tabs) = (head . filter active-p) tabs
+  active-tab(tabs)      = (find-active-tab tabs) || (head tabs)
 
   
   ### == Core implementation ===========================================
@@ -62,6 +65,7 @@ module.exports = (engine) ->
     mark-as-processed it
     group = Group.make parent
     tabs  = make-tabs group, tab-anchors it
+    (active-tab tabs).show!
     group
 
 
