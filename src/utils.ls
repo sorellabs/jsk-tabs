@@ -40,14 +40,6 @@ module.exports = (engine) ->
   ### == Helpers =======================================================
   mark-as-processed     = add-class \jskp-tabgroup
   filter(f, xs)         = [].filter.call xs, f
-  tab-anchor-p          = (not) . has-class-p \jsk-toggle
-  tab-anchors           = find-anchors >> (filter tab-anchor-p)
-  active-p(tab)         = has-class-p \active tab.tab
-  find-active-tab(tabs) = (head . filter active-p) tabs
-  active-tab(tabs)      = (find-active-tab tabs) || (head tabs)
-
-  
-  ### == Core implementation ===========================================
 
   #### Function find-anchors
   # Selects nodes that can be used as toggling anchors for a context
@@ -56,6 +48,13 @@ module.exports = (engine) ->
   # find-anchors :: Node -> [Node]
   find-anchors = (x) -> query 'a.jsk-anchor[href*="#"], .tab[data-jsk-target]' x
 
+  current-p(tab)        = ~(tab.tab.href.indexOf location.hash)
+  active-p(tab)         = (current-p tab) || (has-class-p \active tab.tab).0
+  find-active-tab(tabs) = (head . filter active-p) tabs
+  active-tab(tabs)      = (find-active-tab tabs) || (head tabs)
+
+  
+  ### == Core implementation ===========================================
 
   make-tabs(group, xs) = xs |> map ->
     Tab.make group, it, target it
@@ -64,7 +63,7 @@ module.exports = (engine) ->
   make-groups(parent, xs) = xs |> map ->
     mark-as-processed it
     group = Group.make parent
-    tabs  = make-tabs group, tab-anchors it
+    tabs  = make-tabs group, find-anchors it
     (active-tab tabs).show!
     group
 
